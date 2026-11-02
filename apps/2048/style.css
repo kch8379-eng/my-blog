@@ -1,0 +1,372 @@
+/* 색상 변수: 블로그 theme.css와 같은 이름·값을 복제하고 2048 전용 변수를 더한다. */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --text: #1f2328;
+  --muted: #5b6470;
+  --accent: #2457d6;
+  --on-accent: #ffffff;
+  --border: #e3e6ea;
+  --board-bg: #d5dae1;
+  --cell-bg: #e6e9ee;
+  --overlay-bg: rgba(255, 255, 255, 0.86);
+  --ring-2048: #8ab0ff;
+  --tile-2-bg: #eef2fb;    --tile-2-fg: #1f2328;
+  --tile-4-bg: #dbe5f8;    --tile-4-fg: #1f2328;
+  --tile-8-bg: #b9ccf2;    --tile-8-fg: #1f2328;
+  --tile-16-bg: #93afe9;   --tile-16-fg: #1f2328;
+  --tile-32-bg: #6b92e0;   --tile-32-fg: #10151c;
+  --tile-64-bg: #456fd0;   --tile-64-fg: #ffffff;
+  --tile-128-bg: #2457d6;  --tile-128-fg: #ffffff;
+  --tile-256-bg: #1d47b0;  --tile-256-fg: #ffffff;
+  --tile-512-bg: #173a91;  --tile-512-fg: #ffffff;
+  --tile-1024-bg: #112d72; --tile-1024-fg: #ffffff;
+  --tile-2048-bg: #0b1f52; --tile-2048-fg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #14171c;
+    --surface: #1c2027;
+    --text: #e6e8eb;
+    --muted: #9aa4b0;
+    --accent: #8ab0ff;
+    --on-accent: #10151c;
+    --border: #2d333b;
+    --board-bg: #262c35;
+    --cell-bg: #1c2027;
+    --overlay-bg: rgba(20, 23, 28, 0.86);
+    --ring-2048: #2457d6;
+    --tile-2-bg: #2b3340;    --tile-2-fg: #e6e8eb;
+    --tile-4-bg: #35405a;    --tile-4-fg: #e6e8eb;
+    --tile-8-bg: #44558a;    --tile-8-fg: #ffffff;
+    --tile-16-bg: #5069ad;   --tile-16-fg: #ffffff;
+    --tile-32-bg: #6283cf;   --tile-32-fg: #10151c;
+    --tile-64-bg: #7b9cdf;   --tile-64-fg: #10151c;
+    --tile-128-bg: #8ab0ff;  --tile-128-fg: #10151c;
+    --tile-256-bg: #a6c3ff;  --tile-256-fg: #10151c;
+    --tile-512-bg: #c0d5ff;  --tile-512-fg: #10151c;
+    --tile-1024-bg: #d6e3ff; --tile-1024-fg: #10151c;
+    --tile-2048-bg: #ecf2ff; --tile-2048-fg: #10151c;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #14171c;
+  --surface: #1c2027;
+  --text: #e6e8eb;
+  --muted: #9aa4b0;
+  --accent: #8ab0ff;
+  --on-accent: #10151c;
+  --border: #2d333b;
+  --board-bg: #262c35;
+  --cell-bg: #1c2027;
+  --overlay-bg: rgba(20, 23, 28, 0.86);
+  --ring-2048: #2457d6;
+  --tile-2-bg: #2b3340;    --tile-2-fg: #e6e8eb;
+  --tile-4-bg: #35405a;    --tile-4-fg: #e6e8eb;
+  --tile-8-bg: #44558a;    --tile-8-fg: #ffffff;
+  --tile-16-bg: #5069ad;   --tile-16-fg: #ffffff;
+  --tile-32-bg: #6283cf;   --tile-32-fg: #10151c;
+  --tile-64-bg: #7b9cdf;   --tile-64-fg: #10151c;
+  --tile-128-bg: #8ab0ff;  --tile-128-fg: #10151c;
+  --tile-256-bg: #a6c3ff;  --tile-256-fg: #10151c;
+  --tile-512-bg: #c0d5ff;  --tile-512-fg: #10151c;
+  --tile-1024-bg: #d6e3ff; --tile-1024-fg: #10151c;
+  --tile-2048-bg: #ecf2ff; --tile-2048-fg: #10151c;
+}
+
+/* 기본(모바일 우선) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.app {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 8px 16px 32px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.scoreboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.score-box {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 4px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.score-label {
+  display: block;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.score-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-gain {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  color: var(--accent);
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.score-gain.show {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.actions {
+  display: flex;
+  flex: 1 1 100%;
+  gap: 8px;
+}
+
+.button {
+  flex: 1;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 16px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+.hint {
+  margin: 12px 0;
+  color: var(--muted);
+}
+
+/* 보드: 칸 크기와 위치는 퍼센트로 계산해 화면 폭에 비례한다. */
+.board {
+  --gap: 3%;
+  --cell: calc((100% - 5 * var(--gap)) / 4);
+  position: relative;
+  width: min(100%, 500px, 80vh);
+  margin: 0 auto;
+  aspect-ratio: 1;
+  background: var(--board-bg);
+  border-radius: 8px;
+  container-type: inline-size;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.cell,
+.tile {
+  position: absolute;
+  top: calc(var(--gap) + var(--row) * (var(--cell) + var(--gap)));
+  left: calc(var(--gap) + var(--col) * (var(--cell) + var(--gap)));
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 6px;
+}
+
+.cell {
+  background: var(--cell-bg);
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9cqw;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.tile-digits-3 { font-size: 7.5cqw; }
+.tile-digits-4 { font-size: 6cqw; }
+.tile-digits-5 { font-size: 5cqw; }
+
+.tile-2 { background: var(--tile-2-bg); color: var(--tile-2-fg); }
+.tile-4 { background: var(--tile-4-bg); color: var(--tile-4-fg); }
+.tile-8 { background: var(--tile-8-bg); color: var(--tile-8-fg); }
+.tile-16 { background: var(--tile-16-bg); color: var(--tile-16-fg); }
+.tile-32 { background: var(--tile-32-bg); color: var(--tile-32-fg); }
+.tile-64 { background: var(--tile-64-bg); color: var(--tile-64-fg); }
+.tile-128 { background: var(--tile-128-bg); color: var(--tile-128-fg); }
+.tile-256 { background: var(--tile-256-bg); color: var(--tile-256-fg); }
+.tile-512 { background: var(--tile-512-bg); color: var(--tile-512-fg); }
+.tile-1024 { background: var(--tile-1024-bg); color: var(--tile-1024-fg); }
+.tile-2048,
+.tile-super {
+  background: var(--tile-2048-bg);
+  color: var(--tile-2048-fg);
+  box-shadow: inset 0 0 0 3px var(--ring-2048);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--overlay-bg);
+  border-radius: 8px;
+}
+
+.overlay-title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.overlay-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.overlay-actions .button {
+  flex: 0 1 auto;
+}
+
+/* 360px 이하: 간격과 글자 크기를 한 단계 줄인다. */
+@media (max-width: 360px) {
+  .board {
+    --gap: 2.5%;
+  }
+
+  .app-title {
+    font-size: 1.75rem;
+  }
+
+  .score-value {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 520px) {
+  .actions {
+    flex: 0 0 auto;
+  }
+
+  .button {
+    flex: 0 0 auto;
+  }
+}
+
+/* 블로그 카드 미리보기: 보드만 보여 준다. */
+.preview .app-header,
+.preview .scoreboard,
+.preview .hint {
+  display: none;
+}
+
+.preview .app {
+  padding: 8px;
+}
+
+.preview .board {
+  width: min(100%, 500px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .score-gain {
+    transition: none;
+    transform: none;
+  }
+}
