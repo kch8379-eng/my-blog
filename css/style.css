@@ -329,6 +329,10 @@ main {
   background: var(--surface);
 }
 
+.app-card + .app-card {
+  margin-top: 1rem;
+}
+
 .app-card-preview {
   flex: 0 0 auto;
   width: 160px;

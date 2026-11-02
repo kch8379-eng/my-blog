@@ -1,0 +1,343 @@
+/* 색상 변수: 블로그 theme.css와 같은 이름·값을 복제한다. 그림 색과 캔버스 바탕은 JS의 고정 상수다. */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #f6f7f9;
+  --text: #1f2328;
+  --muted: #5b6470;
+  --accent: #2457d6;
+  --on-accent: #ffffff;
+  --border: #e3e6ea;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #14171c;
+    --surface: #1c2027;
+    --text: #e6e8eb;
+    --muted: #9aa4b0;
+    --accent: #8ab0ff;
+    --on-accent: #10151c;
+    --border: #2d333b;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #14171c;
+  --surface: #1c2027;
+  --text: #e6e8eb;
+  --muted: #9aa4b0;
+  --accent: #8ab0ff;
+  --on-accent: #10151c;
+  --border: #2d333b;
+}
+
+/* 기본(모바일 우선) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.app {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 8px 16px 32px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.back-link {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.back-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 한 컬럼 배치 (모바일) */
+.editor-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+/* 버튼 */
+.button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 4px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button[aria-pressed='true'] {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+/* 격자는 도구가 아니라 표시 옵션이므로 점선 테두리로 구분한다. */
+.button-toggle {
+  border-style: dashed;
+  border-color: var(--muted);
+}
+
+.button-primary {
+  width: 100%;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+/* 캔버스: 테두리는 캔버스가 아니라 래퍼에 준다. */
+.canvas-wrap {
+  width: min(100%, 512px, 80vh);
+  aspect-ratio: 1;
+  justify-self: center;
+  align-self: start;
+  border: 2px solid var(--muted);
+  background: var(--surface);
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+/* 팔레트 */
+.palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 8px;
+  padding: 6px;
+}
+
+.swatch {
+  display: block;
+  width: 100%;
+  min-width: 44px;
+  min-height: 44px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 2px solid var(--muted);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 선택 표시: 안쪽 2px 간격(--bg) + 바깥 3px 강조색 이중 링 */
+.swatch[aria-pressed='true'],
+.swatch.is-selected {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 5px var(--accent);
+}
+
+.swatch:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 7px;
+}
+
+.swatch-custom {
+  background: none;
+}
+
+.swatch-custom::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.swatch-custom::-webkit-color-swatch {
+  border: none;
+}
+
+.swatch-custom::-moz-color-swatch {
+  border: none;
+}
+
+.selected-color {
+  margin: 8px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 동작 줄: 좁은 화면에서는 줄이 바뀌어도 넘치지 않는다. */
+.actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 8px;
+}
+
+.status {
+  min-height: 1.7em;
+  margin: 8px 0;
+  color: var(--muted);
+}
+
+.save-help summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.save-help summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.save-help-text {
+  margin: 0;
+  color: var(--muted);
+}
+
+.save-image {
+  display: block;
+  width: 256px;
+  max-width: 100%;
+  aspect-ratio: 1;
+  margin-top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  image-rendering: pixelated;
+}
+
+/* 360px 미만: 도구 줄을 2열로 */
+@media (max-width: 359px) {
+  .toolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 720px 이상: 왼쪽 캔버스, 오른쪽 도구·팔레트·동작·저장 */
+@media (min-width: 720px) {
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .button {
+    padding: 0 16px;
+  }
+
+  .editor-layout {
+    grid-template-columns: minmax(0, 512px) minmax(280px, 1fr);
+    grid-template-rows: auto auto auto auto 1fr;
+    column-gap: 24px;
+  }
+
+  .canvas-wrap {
+    grid-column: 1;
+    grid-row: 1 / span 5;
+    justify-self: stretch;
+    width: 100%;
+    max-width: 80vh;
+  }
+
+  .toolbar,
+  .palette-section,
+  .actions,
+  .save-section {
+    grid-column: 2;
+  }
+
+  /* 오른쪽 열이 좁아 도구 줄은 2열로 둔다. */
+  .toolbar {
+    grid-row: 1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .palette-section { grid-row: 2; }
+  .actions { grid-row: 3; }
+  .save-section { grid-row: 4; }
+}
+
+/* 블로그 카드 미리보기: 캔버스만 보여 준다. */
+.preview .app-header,
+.preview .toolbar,
+.preview .palette-section,
+.preview .actions,
+.preview .save-section {
+  display: none;
+}
+
+.preview .app {
+  padding: 8px;
+}
+
+.preview .editor-layout {
+  display: block;
+}
+
+.preview .canvas-wrap {
+  width: 100%;
+  pointer-events: none;
+}

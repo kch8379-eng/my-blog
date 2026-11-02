@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>픽셀 아트 에디터</title>
+  <meta name="description" content="16×16 격자에 도트를 찍어 그림을 그리고 PNG로 저장하는 픽셀 아트 에디터">
+  <link rel="icon" href="data:,">
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}if(/[?&]preview(&|=|$)/.test(location.search))document.documentElement.classList.add('preview')</script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1 class="app-title">픽셀 아트 에디터</h1>
+      <a class="back-link" href="../../index.html">← 블로그</a>
+    </header>
+
+    <main class="editor-layout">
+      <div class="toolbar" role="group" aria-label="도구">
+        <button id="pencil-button" class="button" type="button" aria-pressed="true">연필</button>
+        <button id="eraser-button" class="button" type="button" aria-pressed="false">지우개</button>
+        <button id="eyedropper-button" class="button" type="button" aria-pressed="false">스포이트</button>
+        <button id="grid-button" class="button button-toggle" type="button" aria-pressed="true">격자</button>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="canvas" class="canvas" role="img" aria-label="16×16 픽셀 아트 캔버스"></canvas>
+      </div>
+
+      <section class="palette-section" aria-label="색상">
+        <div id="palette" class="palette" role="group" aria-label="색상 팔레트">
+          <input id="custom-color" class="swatch swatch-custom" type="color" value="#000000" aria-label="사용자 지정 색" title="사용자 지정 색">
+        </div>
+        <p id="selected-color" class="selected-color">선택: 검정 #000000</p>
+      </section>
+
+      <div class="actions" role="group" aria-label="편집">
+        <button id="undo-button" class="button" type="button" disabled>되돌리기</button>
+        <button id="redo-button" class="button" type="button" disabled>다시 실행</button>
+        <button id="clear-button" class="button" type="button">모두 지우기</button>
+      </div>
+
+      <section class="save-section" aria-label="저장">
+        <button id="save-button" class="button button-primary" type="button">PNG 저장</button>
+        <p id="status" class="status" aria-live="polite"></p>
+        <details class="save-help">
+          <summary>저장이 안 되나요?</summary>
+          <p class="save-help-text">이미지를 길게 눌러 저장하세요.</p>
+          <img id="save-image" class="save-image" alt="저장한 PNG 미리보기" hidden>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
