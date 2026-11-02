@@ -1,23 +1,41 @@
 [
   {
+    "slug": "css-variables",
+    "title": "오늘 배운 것: CSS 변수",
+    "date": "2026-11-02",
+    "summary": "이 블로그의 다크 모드가 CSS 변수 덕분에 어떻게 가능한지 정리했습니다.",
+    "tags": [
+      "웹개발",
+      "CSS변수"
+    ]
+  },
+  {
     "slug": "today-learned",
     "title": "오늘 배운 것",
     "date": "2026-10-28",
     "summary": "Claude Code로 블로그를 만들면서 알게 된 HTML, CSS, JavaScript의 역할을 간단히 정리했습니다.",
-    "tags": ["웹개발", "정리"]
+    "tags": [
+      "웹개발",
+      "정리"
+    ]
   },
   {
     "slug": "markdown-guide",
     "title": "마크다운 문법 가이드",
     "date": "2026-10-27",
     "summary": "이 블로그가 지원하는 모든 마크다운 문법을 한 번에 확인해 보는 글입니다.",
-    "tags": ["마크다운", "가이드"]
+    "tags": [
+      "마크다운",
+      "가이드"
+    ]
   },
   {
     "slug": "hello-world",
     "title": "첫 번째 글: 안녕하세요",
     "date": "2026-10-26",
     "summary": "마크다운 파일 하나로 글을 올리는 블로그를 시작합니다.",
-    "tags": ["일상"]
+    "tags": [
+      "일상"
+    ]
   }
 ]

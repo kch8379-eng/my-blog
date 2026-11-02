@@ -308,6 +308,85 @@ main {
   white-space: nowrap;
 }
 
+/* 앱 카드 (메인 페이지) */
+.section-title {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.app-cards {
+  margin-bottom: 2rem;
+}
+
+.app-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.app-card-preview {
+  flex: 0 0 auto;
+  width: 160px;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.app-card-preview iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+
+.app-card-body {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.app-card-body h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.app-card-body h3 a {
+  display: inline-block;
+  padding-block: 0.25rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.app-card-body h3 a:hover {
+  color: var(--accent);
+}
+
+.app-card-body p {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--muted);
+}
+
+.app-card-play {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.app-card-play:hover {
+  background: var(--bg);
+}
+
 @media (min-width: 640px) {
   main {
     padding-block: 3rem 4rem;

@@ -21,6 +21,22 @@
 
   <main class="container">
     <h1 class="visually-hidden">글 목록</h1>
+
+    <section class="app-cards" aria-labelledby="apps-heading">
+      <h2 id="apps-heading" class="section-title">앱</h2>
+      <article class="app-card">
+        <a class="app-card-preview" href="apps/2048/index.html" tabindex="-1" aria-hidden="true">
+          <iframe src="apps/2048/index.html?preview" title="2048 미리보기" loading="lazy" tabindex="-1"></iframe>
+        </a>
+        <div class="app-card-body">
+          <h3><a href="apps/2048/index.html">2048</a></h3>
+          <p>방향키나 스와이프로 숫자 타일을 밀어 합치는 퍼즐 게임. 점수와 최고 점수를 기록합니다.</p>
+          <a class="app-card-play" href="apps/2048/index.html">플레이하기</a>
+        </div>
+      </article>
+    </section>
+
+    <h2 class="section-title">글</h2>
     <ul id="post-list" class="post-list" aria-live="polite">
       <li class="status">불러오는 중…</li>
     </ul>
